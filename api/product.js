@@ -18,18 +18,30 @@ export default async function handler(req, res) {
       }
     );
 
+    const text = await response.text();
+
     if (!response.ok) {
+      console.error(
+        "Fourthwall error:",
+        response.status,
+        text
+      );
+
       return res.status(response.status).json({
-        error: "Fourthwall request failed"
+        error: "Fourthwall request failed",
+        status: response.status
       });
     }
 
-    const product = await response.json();
+    const product = JSON.parse(text);
 
     return res.status(200).json(product);
 
   } catch (error) {
-    console.error(error);
+    console.error(
+      "API route error:",
+      error
+    );
 
     return res.status(500).json({
       error: "Server error"
