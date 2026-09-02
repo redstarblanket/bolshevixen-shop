@@ -1,3 +1,7 @@
+/* =====================================
+   GLOBAL
+===================================== */
+
 * {
   box-sizing: border-box;
 }
@@ -9,15 +13,17 @@ html {
 body {
   position: relative;
   margin: 0;
+
   background: #fff3eb;
   color: #4d2035;
+
   font-family: Arial, sans-serif;
 }
 
 
-/* =========================
+/* =====================================
    MARQUEE
-========================= */
+===================================== */
 
 .marquee {
   width: 100%;
@@ -47,7 +53,7 @@ body {
   flex-shrink: 0;
 
   font-weight: bold;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
 }
 
 @keyframes marqueeScroll {
@@ -61,9 +67,9 @@ body {
 }
 
 
-/* =========================
+/* =====================================
    HEADER
-========================= */
+===================================== */
 
 .site-header {
   display: flex;
@@ -73,14 +79,18 @@ body {
   width: min(1200px, 92%);
   margin: 0 auto;
   padding: 24px 0;
+
+  position: relative;
   z-index: 1;
 }
 
 .logo {
   color: #a91f45;
+
   font-family: "Russo One", sans-serif;
   font-size: 2rem;
   font-weight: bold;
+
   text-decoration: none;
 }
 
@@ -91,6 +101,7 @@ body {
 
 .main-nav a {
   color: #4d2035;
+
   text-decoration: none;
   font-weight: bold;
 }
@@ -100,19 +111,22 @@ body {
 }
 
 
-/* =========================
+/* =====================================
    HERO
-========================= */
+===================================== */
 
 .hero {
   display: grid;
+
   grid-template-columns:
-  minmax(0, 1.25fr)
-  minmax(250px, 340px);
+    minmax(0, 1.25fr)
+    minmax(250px, 340px);
+
   gap: 40px;
   align-items: center;
 
   width: min(1200px, 92%);
+
   margin: 30px auto 50px;
   padding: 60px;
 
@@ -127,55 +141,111 @@ body {
     );
 }
 
+.hero-copy,
+.hero-art {
+  min-width: 0;
+}
+
 .eyebrow {
   color: #a91f45;
-  font-size: .8rem;
+
+  font-size: 0.8rem;
   font-weight: bold;
-  letter-spacing: .12em;
+
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .hero h1 {
   margin: 14px 0;
 
+  max-width: 100%;
+
   color: #a91f45;
+
   font-family: "Russo One", sans-serif;
 
   font-size: clamp(3.5rem, 5.5vw, 5.5rem);
-  line-height: .9;
+  line-height: 0.9;
 
-  max-width: 100%;
   overflow-wrap: normal;
   word-break: normal;
 }
 
 .hero-text {
   max-width: 500px;
+
   line-height: 1.7;
 }
 
-.primary-button {
-  display: inline-block;
+
+/* =====================================
+   HERO BUTTONS
+===================================== */
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: stretch;
+
+  gap: 16px;
 
   margin-top: 16px;
+}
+
+/*
+Both hero buttons use the exact same
+layout, height and padding.
+*/
+
+.primary-button,
+.kofi-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 56px;
+
+  margin: 0;
   padding: 14px 22px;
 
   border-radius: 8px;
 
-  background: #d92f61;
-  color: #fff8f2;
-
   text-decoration: none;
   font-weight: bold;
+
+  line-height: 1.2;
 }
 
-.hero-copy,
-.hero-art {
-  min-width: 0;
+.primary-button {
+  border: 2px solid #d92f61;
+
+  background: #d92f61;
+  color: #fff8f2;
 }
-/* =========================
-   TAPED ART
-========================= */
+
+.kofi-button {
+  border: 2px solid #d92f61;
+
+  background: #fff8f2;
+  color: #d92f61;
+}
+
+.primary-button:hover {
+  background: #c72454;
+  border-color: #c72454;
+}
+
+.kofi-button:hover {
+  background: #f8c8d8;
+}
+
+
+/* =====================================
+   TAPED HERO ART
+===================================== */
 
 .hero-art {
   position: relative;
@@ -190,7 +260,7 @@ body {
   background: #fff8f2;
 
   box-shadow:
-    8px 10px 0 rgba(77, 32, 53, .15);
+    8px 10px 0 rgba(77, 32, 53, 0.15);
 
   transform: rotate(2deg);
 }
@@ -208,7 +278,7 @@ body {
   width: 95px;
   height: 28px;
 
-  background: rgba(255, 236, 184, .78);
+  background: rgba(255, 236, 184, 0.78);
 
   z-index: 2;
 }
@@ -228,9 +298,9 @@ body {
 }
 
 
-/* =========================
+/* =====================================
    ANNOUNCEMENT
-========================= */
+===================================== */
 
 .announcement {
   padding: 12px;
@@ -242,21 +312,24 @@ body {
 
   text-align: center;
   font-weight: bold;
+
   word-spacing: 12px;
 }
 
 
-/* =========================
+/* =====================================
    SHOP
-========================= */
+===================================== */
 
 .shop-section {
   width: min(1200px, 92%);
+
   margin: 70px auto;
 }
 
 .section-heading {
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 
@@ -272,8 +345,14 @@ body {
   font-size: 2rem;
 }
 
+
+/* =====================================
+   PRODUCT GRID
+===================================== */
+
 .product-grid {
   display: grid;
+
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
@@ -283,6 +362,11 @@ body {
 .product-card {
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
   padding: 12px;
 
   border: 2px solid #d92f61;
@@ -290,65 +374,75 @@ body {
 
   background: #fff8f2;
 
+  color: inherit;
+  text-decoration: none;
+
   box-shadow:
     5px 6px 0 rgba(77, 32, 53, 0.12);
 
-  display: block;
-  color: inherit;
-  text-decoration: none;
   transition: transform 0.2s ease;
 }
 
-.product-card h3 {
-  margin: 12px 0 4px;
-
-  min-height: 2.6em;
-
-  color: #a91f45;
-  font-family: "Russo One", sans-serif;
-  font-size: 1rem;
-  line-height: 1.3;
-}
-
-.product-link {
-  display: inline-block;
-  margin-top: 8px;
-
-  color: #d92f61;
-  font-weight: bold;
+.product-card:hover {
+  transform: translateY(-3px);
 }
 
 .product-image {
-  aspect-ratio: 1;
-
   display: grid;
   place-items: center;
 
-  background: #f8c8d8;
+  overflow: hidden;
 
+  aspect-ratio: 1 / 1;
+
+  border: 1px solid #e96991;
+  border-radius: 10px;
+
+  background: #f8c8d8;
   color: #a91f45;
 }
 
 .product-image img {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
 }
 
 .product-card h3 {
-  margin-bottom: 5px;
+  min-height: 2.6em;
+
+  margin: 12px 0 4px;
+
+  color: #a91f45;
+
+  font-family: "Russo One", sans-serif;
+  font-size: 1rem;
+
+  line-height: 1.3;
 }
 
 .product-card p {
-  margin-top: 0;
+  margin: 0 0 12px;
+}
+
+.product-link {
+  display: inline-block;
+
+  margin-top: auto;
+
+  color: #d92f61;
+
+  font-weight: bold;
 }
 
 .product-card button {
+  width: 100%;
+
   margin-top: auto;
   padding: 11px;
-
-  width: 100%;
 
   border: 0;
   border-radius: 8px;
@@ -361,7 +455,9 @@ body {
 
 .coming-soon-button {
   display: block;
+
   width: 100%;
+
   margin-top: auto;
   padding: 11px;
 
@@ -374,49 +470,34 @@ body {
   font-weight: bold;
 }
 
-.hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 16px;
-  align-items: center;
-}
+.product-badge {
+  position: absolute;
 
-.hero-buttons a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  top: 20px;
+  right: 20px;
 
-  min-height: 56px;
-  padding: 14px 22px;
+  padding: 5px 8px;
 
-  box-sizing: border-box;
-}
-.kofi-button {
-  display: inline-block;
-  padding: 14px 22px;
+  border-radius: 999px;
 
-  border: 2px solid #d92f61;
-  border-radius: 8px;
+  background: #d92f61;
+  color: #fff8f2;
 
-  background: #fff8f2;
-  color: #d92f61;
-
-  text-decoration: none;
+  font-size: 0.65rem;
   font-weight: bold;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.kofi-button:hover {
-  background: #f8c8d8;
-}
 
-
-/* =========================
+/* =====================================
    ABOUT
-========================= */
+===================================== */
 
 .about-section {
   width: min(800px, 90%);
+
   margin: 80px auto;
   padding: 40px;
 
@@ -436,81 +517,9 @@ body {
 }
 
 
-/* PRODUCT CARD*/
-.product-card {
-  position: relative;
-  padding: 12px;
-
-  border: 2px solid #d92f61;
-  border-radius: 14px;
-
-  background: #fff8f2;
-
-  box-shadow:
-    5px 6px 0 rgba(77, 32, 53, 0.12);
-}
-
-.product-image {
-  aspect-ratio: 1 / 1;
-
-  display: grid;
-  place-items: center;
-
-  overflow: hidden;
-
-  border: 1px solid #e96991;
-  border-radius: 10px;
-
-  background: #f8c8d8;
-}
-
-.product-card h3 {
-  margin: 12px 0 4px;
-
-  color: #a91f45;
-  font-family: "Russo One", sans-serif;
-  font-size: 1rem;
-}
-
-.product-card p {
-  margin: 0 0 12px;
-}
-
-.product-card button {
-  width: 100%;
-  padding: 11px;
-
-  border: 0;
-  border-radius: 8px;
-
-  background: #d92f61;
-  color: #fff8f2;
-
-  font-weight: bold;
-}
-
-.product-badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-
-  padding: 5px 8px;
-
-  border-radius: 999px;
-
-  background: #d92f61;
-  color: #fff8f2;
-
-  font-size: 0.65rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-
-/* =========================
+/* =====================================
    SCALLOPED DIVIDER
-========================= */
+===================================== */
 
 .scallop-divider {
   height: 24px;
@@ -527,60 +536,49 @@ body {
 }
 
 
-/* =========================
-   SYMBOL STRIP
-========================= */
-
-.symbol-strip {
-  overflow: hidden;
-
-  padding: 10px 16px;
-
-  background: #d92f61;
-  color: #fff8f2;
-
-  text-align: center;
-  font-size: 1.15rem;
-  letter-spacing: 14px;
-
-  white-space: nowrap;
-}
-
-/* =========================
+/* =====================================
    FOOTER
-========================= */
+===================================== */
 
 footer {
   background: #d92f61;
   color: #fff8f2;
+
   text-align: center;
 }
 
 .symbol-strip {
+  overflow: hidden;
+
   padding: 12px 16px 8px;
 
   color: #fff8f2;
 
   font-size: 1.05rem;
+
   letter-spacing: 16px;
 
   white-space: nowrap;
-  overflow: hidden;
 }
 
 footer p {
   margin: 0;
+
   padding: 8px 20px 20px;
 
   font-size: 0.9rem;
 }
 
 
-/* FALLING SYMBOLS */
+/* =====================================
+   FALLING SYMBOLS
+===================================== */
 
 .falling-symbol {
   position: fixed;
+
   top: -40px;
+
   z-index: -3;
 
   pointer-events: none;
@@ -606,10 +604,13 @@ footer p {
 }
 
 
-/* STICKER PAGES*/
+/* =====================================
+   PRODUCT DETAIL PAGE
+===================================== */
 
 .product-detail {
   display: grid;
+
   grid-template-columns:
     minmax(0, 1fr)
     minmax(280px, 420px);
@@ -617,6 +618,7 @@ footer p {
   gap: 60px;
 
   width: min(1100px, 92%);
+
   margin: 50px auto 90px;
 }
 
@@ -624,8 +626,17 @@ footer p {
   min-width: 0;
 }
 
+
+/* =====================================
+   PRODUCT MAIN IMAGE
+===================================== */
+
 .product-main-image {
   overflow: hidden;
+
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
 
   border: 2px solid #d92f61;
   border-radius: 18px;
@@ -634,16 +645,29 @@ footer p {
 
   box-shadow:
     6px 7px 0 rgba(77, 32, 53, 0.12);
+
+  cursor: zoom-in;
 }
 
 .product-main-image img {
   display: block;
+
   width: 100%;
-  height: auto;
+  height: 100%;
+
+  object-fit: cover;
+
+  padding: 16px;
 }
+
+
+/* =====================================
+   PRODUCT THUMBNAILS
+===================================== */
 
 .product-thumbnails {
   display: flex;
+
   gap: 10px;
 
   margin-top: 14px;
@@ -651,24 +675,38 @@ footer p {
 
 .thumbnail {
   width: 80px;
+
+  aspect-ratio: 1 / 1;
+
   padding: 4px;
+
+  overflow: hidden;
 
   border: 2px solid #e96991;
   border-radius: 10px;
 
   background: #fff8f2;
+
   cursor: pointer;
 }
 
 .thumbnail img {
   display: block;
+
   width: 100%;
-  height: auto;
+  height: 100%;
+
+  object-fit: cover;
 }
 
 .thumbnail.active {
   border-color: #d92f61;
 }
+
+
+/* =====================================
+   PRODUCT INFO
+===================================== */
 
 .product-info {
   min-width: 0;
@@ -676,6 +714,7 @@ footer p {
 
 .back-link {
   color: #d92f61;
+
   text-decoration: none;
   font-weight: bold;
 }
@@ -687,6 +726,7 @@ footer p {
 
   font-size: 0.8rem;
   font-weight: bold;
+
   letter-spacing: 0.12em;
 }
 
@@ -696,6 +736,7 @@ footer p {
   color: #a91f45;
 
   font-family: "Russo One", sans-serif;
+
   font-size: clamp(2rem, 5vw, 3.5rem);
   line-height: 1;
 }
@@ -708,7 +749,18 @@ footer p {
 }
 
 .product-description {
+  margin: 0;
+
   line-height: 1.7;
+}
+
+.product-description p:last-child {
+  margin-bottom: 0;
+}
+
+.product-description div:empty,
+.product-description p:empty {
+  display: none;
 }
 
 .product-details {
@@ -726,10 +778,16 @@ footer p {
   margin: 6px 0;
 }
 
+
+/* =====================================
+   COMING SOON
+===================================== */
+
 .detail-coming-soon {
   display: block;
 
   width: 100%;
+
   padding: 14px;
 
   border-radius: 9px;
@@ -741,68 +799,91 @@ footer p {
   font-weight: bold;
 }
 
-@media (max-width: 800px) {
-  .product-detail {
-    grid-template-columns: 1fr;
-    gap: 35px;
-  }
+
+/* =====================================
+   SHIPPING NOTE
+===================================== */
+
+.shipping-note {
+  margin-top: 18px;
+
+  color: #6f5360;
+
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 
-.product-main-image {
-  overflow: hidden;
+/* =====================================
+   ADD TO CART
+===================================== */
 
+.add-to-cart-button {
   width: 100%;
-  aspect-ratio: 1 / 1;
 
-  border: 2px solid #d92f61;
-  border-radius: 18px;
+  padding: 14px;
 
-  background: #fff8f2;
+  border: 0;
+  border-radius: 9px;
 
-  box-shadow:
-    6px 7px 0 rgba(77, 32, 53, 0.12);
-}
+  background: #d92f61;
+  color: #fff8f2;
 
-.product-main-image img {
-  display: block;
+  font-size: 1rem;
+  font-weight: bold;
 
-  width: 100%;
-  height: 100%;
-
-  object-fit: cover;
-
-  padding: 16px;
-}
-
-.thumbnail {
-  width: 80px;
-  aspect-ratio: 1 / 1;
-  padding: 4px;
-
-  overflow: hidden;
-
-  border: 2px solid #e96991;
-  border-radius: 10px;
-
-  background: #fff8f2;
   cursor: pointer;
 }
 
-.thumbnail img {
-  display: block;
+.add-to-cart-button:disabled {
+  opacity: 0.6;
 
-  width: 100%;
-  height: 100%;
+  cursor: wait;
+}
 
-  object-fit: cover;
+.cart-message {
+  min-height: 1.5em;
+
+  margin: 10px 0 0;
+
+  color: #a91f45;
+
+  font-size: 0.9rem;
+  text-align: center;
 }
-.product-main-image {
-  cursor: zoom-in;
+
+
+/* =====================================
+   TEST CHECKOUT BUTTON
+===================================== */
+
+.test-checkout-button {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
+  padding: 12px 18px;
+
+  border: 2px solid #d92f61;
+  border-radius: 8px;
+
+  background: #fff8f2;
+  color: #d92f61;
+
+  text-decoration: none;
+  font-weight: bold;
 }
+
+
+/* =====================================
+   IMAGE LIGHTBOX
+===================================== */
 
 .image-lightbox {
   position: fixed;
+
   inset: 0;
 
   display: none;
@@ -835,6 +916,7 @@ footer p {
 
 .lightbox-close {
   position: absolute;
+
   top: 20px;
   right: 24px;
 
@@ -848,94 +930,40 @@ footer p {
   color: #d92f61;
 
   font-size: 1.8rem;
-  cursor: pointer;
-}
-
-.product-description {
-  line-height: 1.7;
-  margin: 0;
-}
-
-.product-description p:last-child {
-  margin-bottom: 0;
-}
-
-.product-description div:empty,
-.product-description p:empty {
-  display: none;
-}
-
-.shipping-note {
-  margin-top: 18px;
-  color: #6f5360;
-  font-size: 0.9rem;
-  line-height: 1.6;
-}
-
-.add-to-cart-button {
-  width: 100%;
-  padding: 14px;
-
-  border: 0;
-  border-radius: 9px;
-
-  background: #d92f61;
-  color: #fff8f2;
-
-  font-size: 1rem;
-  font-weight: bold;
 
   cursor: pointer;
 }
 
-.add-to-cart-button:disabled {
-  opacity: 0.6;
-  cursor: wait;
-}
 
-.cart-message {
-  min-height: 1.5em;
-  margin: 10px 0 0;
-
-  color: #a91f45;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.test-checkout-button {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 12px 18px;
-
-  border: 2px solid #d92f61;
-  border-radius: 8px;
-
-  color: #d92f61;
-  background: #fff8f2;
-
-  text-decoration: none;
-  font-weight: bold;
-}
-/* =========================
-   MOBILE
-========================= */
+/* =====================================
+   TABLET
+===================================== */
 
 @media (max-width: 950px) {
+
   .hero {
     grid-template-columns: 1fr;
+
     gap: 35px;
 
     padding: 40px;
   }
 
   .hero-copy {
-    min-width: 0;
     width: 100%;
+    min-width: 0;
   }
 
-   .hero h1 {
-    font-size: clamp(2.8rem, 8.5vw, 4.6rem);
+  .hero h1 {
+    font-size:
+      clamp(
+        2.8rem,
+        8.5vw,
+        4.6rem
+      );
+
     line-height: 0.92;
+
     letter-spacing: -0.02em;
   }
 
@@ -944,14 +972,54 @@ footer p {
     max-width: 340px;
 
     justify-self: center;
+
     margin: 10px auto 0;
   }
+
 }
+
+
+/* =====================================
+   SMALL TABLET
+===================================== */
+
+@media (max-width: 800px) {
+
+  .product-detail {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .product-info h1 {
+    font-size:
+      clamp(
+        2rem,
+        8vw,
+        3rem
+      );
+  }
+
+  .product-thumbnails {
+    flex-wrap: wrap;
+  }
+
+  .thumbnail {
+    width: 72px;
+  }
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
 
 @media (max-width: 750px) {
 
   .site-header {
     flex-direction: column;
+
     gap: 16px;
   }
 
@@ -963,6 +1031,7 @@ footer p {
 
   .hero-art {
     max-width: 380px;
+
     margin: 20px auto 0;
   }
 
@@ -970,82 +1039,104 @@ footer p {
     grid-template-columns: 1fr;
   }
 
-   .hero h1 {
-    font-size: clamp(2.4rem, 9.5vw, 3.8rem);
+  .hero h1 {
+    font-size:
+      clamp(
+        2.4rem,
+        9.5vw,
+        3.8rem
+      );
+
     line-height: 0.92;
+
     letter-spacing: -0.03em;
   }
 
 }
+
+
 @media (max-width: 700px) {
+
   .hero {
     width: 96%;
+
     padding: 28px 20px;
   }
+
 }
+
+
+/* =====================================
+   PHONE
+===================================== */
+
 @media (max-width: 600px) {
+
   .hero {
     padding: 28px 22px;
-  }
-
-  .hero h1 {
-    font-size: clamp(3rem, 15vw, 4.25rem);
   }
 
   .hero-art {
     width: min(88%, 300px);
   }
-}
 
-@media (max-width: 600px) {
+  /*
+  Stack hero buttons on phones.
+  Both become the same width.
+  */
+
   .hero-buttons {
     flex-direction: column;
+
     align-items: stretch;
+
     gap: 14px;
   }
 
-  .hero-buttons a {
+  .hero-buttons .primary-button,
+  .hero-buttons .kofi-button {
     width: 100%;
+
+    min-height: 56px;
+
+    margin: 0;
+
     text-align: center;
   }
+
 }
 
+
+/* =====================================
+   SMALL PHONE
+===================================== */
+
 @media (max-width: 500px) {
+
   .hero h1 {
-    font-size: clamp(2.1rem, 10vw, 3rem);
+    font-size:
+      clamp(
+        2.1rem,
+        10vw,
+        3rem
+      );
+
     letter-spacing: -0.04em;
   }
-}
 
-@media (max-width: 800px) {
-  .product-detail {
-    grid-template-columns: 1fr;
-    gap: 35px;
-  }
-
-  .product-info h1 {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-
-  .product-thumbnails {
-    flex-wrap: wrap;
-  }
-
-  .thumbnail {
-    width: 72px;
-  }
-}
-
-
-
-@media (max-width: 500px) {
   .product-detail {
     width: 94%;
+
     margin: 30px auto 60px;
   }
 
   .product-info h1 {
-    font-size: clamp(1.8rem, 9vw, 2.6rem);
+    font-size:
+      clamp(
+        1.8rem,
+        9vw,
+        2.6rem
+      );
   }
 
   .thumbnail {
@@ -1055,4 +1146,5 @@ footer p {
   .image-lightbox {
     padding: 16px;
   }
+
 }
