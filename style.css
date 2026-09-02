@@ -986,6 +986,15 @@ footer p {
   }
 }
 
+@media (max-width: 600px) {
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+  }
+}
+
 @media (max-width: 500px) {
   .hero h1 {
     font-size: clamp(2.1rem, 10vw, 3rem);
