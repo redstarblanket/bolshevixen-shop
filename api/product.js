@@ -7,39 +7,52 @@ export default async function handler(req, res) {
     });
   }
 
-  try {
-    const response = await fetch(
-      `https://storefront-api.fourthwall.com/v1/products/${encodeURIComponent(slug)}`,
-      {
-        headers: {
-          Authorization:
-            `Bearer ${process.env.FOURTHWALL_TOKEN}`
-        }
-      }
-    );
+  const token =
+    process.env.FOURTHWALL_TOKEN;
 
-    const text = await response.text();
+  if (!token) {
+    return res.status(500).json({
+      error: "Fourthwall token is not configured"
+    });
+  }
+
+  try {
+    const url =
+      `https://storefront-api.fourthwall.com/v1/products/` +
+      `${encodeURIComponent(slug)}` +
+      `?storefront_token=${encodeURIComponent(token)}`;
+
+    const response =
+      await fetch(url);
+
+    const text =
+      await response.text();
 
     if (!response.ok) {
       console.error(
-        "Fourthwall error:",
+        "Fourthwall API error:",
         response.status,
         text
       );
 
-      return res.status(response.status).json({
-        error: "Fourthwall request failed",
-        status: response.status
-      });
+      return res
+        .status(response.status)
+        .json({
+          error: "Fourthwall request failed",
+          status: response.status
+        });
     }
 
-    const product = JSON.parse(text);
+    const product =
+      JSON.parse(text);
 
-    return res.status(200).json(product);
+    return res
+      .status(200)
+      .json(product);
 
   } catch (error) {
     console.error(
-      "API route error:",
+      "Product proxy error:",
       error
     );
 
