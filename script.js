@@ -1,21 +1,18 @@
-// =====================================
+
 // FOURTHWALL CHECKOUT SETTINGS
-// =====================================
 
 const FOURTHWALL_SHOP =
   "https://bolshevixen-shop.fourthwall.com";
 
 
-// =====================================
+
 // CURRENT PRODUCT
-// =====================================
 
 let currentProduct = null;
 
 
-// =====================================
+
 // LOAD INDIVIDUAL PRODUCT
-// =====================================
 
 async function loadFourthwallProduct() {
 
@@ -59,9 +56,7 @@ async function loadFourthwallProduct() {
     );
 
 
-    // =====================================
     // PAGE ELEMENTS
-    // =====================================
 
     const title =
       document.getElementById(
@@ -99,9 +94,7 @@ async function loadFourthwallProduct() {
       );
 
 
-    // =====================================
     // TITLE
-    // =====================================
 
     if (title) {
 
@@ -111,9 +104,7 @@ async function loadFourthwallProduct() {
     }
 
 
-    // =====================================
     // DESCRIPTION
-    // =====================================
 
     if (description) {
 
@@ -137,9 +128,7 @@ async function loadFourthwallProduct() {
     }
 
 
-    // =====================================
     // PRICE
-    // =====================================
 
     if (
       price &&
@@ -169,9 +158,7 @@ async function loadFourthwallProduct() {
     }
 
 
-    // =====================================
     // MAIN IMAGE
-    // =====================================
 
     if (
       mainImage &&
@@ -188,9 +175,7 @@ async function loadFourthwallProduct() {
     }
 
 
-    // =====================================
     // THUMBNAILS
-    // =====================================
 
     if (
       thumbnailContainer &&
@@ -284,9 +269,7 @@ async function loadFourthwallProduct() {
     }
 
 
-    // =====================================
     // TEST CHECKOUT
-    // =====================================
 
     if (
       testCheckout &&
@@ -322,9 +305,7 @@ loadFourthwallProduct();
 
 
 
-// =====================================
 // FALLING SYMBOLS
-// =====================================
 
 const symbols = [
   "★",
@@ -406,9 +387,7 @@ setInterval(
 
 
 
-// =====================================
 // IMAGE LIGHTBOX
-// =====================================
 
 const mainPreview =
   document.getElementById(
@@ -513,9 +492,8 @@ if (
 
 
 
-// =====================================
+
 // ESCAPE KEY CLOSES LIGHTBOX
-// =====================================
 
 document.addEventListener(
   "keydown",
