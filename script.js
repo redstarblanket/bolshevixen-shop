@@ -3,7 +3,7 @@
 // =====================================
 
 const FOURTHWALL_SHOP =
-  "https://bolshevixen-shop.fourthwall.com/";
+  "https://bolshevixen-shop.fourthwall.com";
 
 
 // =====================================
