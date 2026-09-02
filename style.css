@@ -18,9 +18,6 @@ body {
 /* =========================
    MARQUEE
 ========================= */
-/* =========================
-   MARQUEE
-========================= */
 
 .marquee {
   width: 100%;
@@ -892,6 +889,21 @@ footer p {
   color: #a91f45;
   font-size: 0.9rem;
   text-align: center;
+}
+
+.test-checkout-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 18px;
+
+  border: 2px solid #d92f61;
+  border-radius: 8px;
+
+  color: #d92f61;
+  background: #fff8f2;
+
+  text-decoration: none;
+  font-weight: bold;
 }
 /* =========================
    MOBILE
