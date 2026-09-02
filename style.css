@@ -1,6 +1,4 @@
-/* =====================================
-   GLOBAL
-===================================== */
+/* GLOBAL */
 
 * {
   box-sizing: border-box;
@@ -21,9 +19,7 @@ body {
 }
 
 
-/* =====================================
-   MARQUEE
-===================================== */
+/* MARQUEE */
 
 .marquee {
   width: 100%;
@@ -67,9 +63,7 @@ body {
 }
 
 
-/* =====================================
-   HEADER
-===================================== */
+/* HEADER */
 
 .site-header {
   display: flex;
@@ -111,9 +105,7 @@ body {
 }
 
 
-/* =====================================
-   HERO
-===================================== */
+/* HERO */
 
 .hero {
   display: grid;
@@ -179,9 +171,7 @@ body {
 }
 
 
-/* =====================================
-   HERO BUTTONS
-===================================== */
+/* HERO BUTTONS */
 
 .hero-buttons {
   display: flex;
@@ -193,11 +183,6 @@ body {
 
   margin-top: 16px;
 }
-
-/*
-Both hero buttons use the exact same
-layout, height and padding.
-*/
 
 .primary-button,
 .kofi-button {
@@ -243,9 +228,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   TAPED HERO ART
-===================================== */
+/* TAPED HERO ART */
 
 .hero-art {
   position: relative;
@@ -298,9 +281,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   ANNOUNCEMENT
-===================================== */
+/* ANNOUNCEMENT */
 
 .announcement {
   padding: 12px;
@@ -317,9 +298,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   SHOP
-===================================== */
+/* SHOP */
 
 .shop-section {
   width: min(1200px, 92%);
@@ -346,9 +325,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   PRODUCT GRID
-===================================== */
+/* PRODUCT GRID */
 
 .product-grid {
   display: grid;
@@ -491,9 +468,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   ABOUT
-===================================== */
+/* ABOUT */
 
 .about-section {
   width: min(800px, 90%);
@@ -517,9 +492,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   SCALLOPED DIVIDER
-===================================== */
+/* SCALLOPED DIVIDER */
 
 .scallop-divider {
   height: 24px;
@@ -536,9 +509,7 @@ layout, height and padding.
 }
 
 
-/* =====================================
-   FOOTER
-===================================== */
+/* FOOTER */
 
 footer {
   background: #d92f61;
@@ -570,9 +541,7 @@ footer p {
 }
 
 
-/* =====================================
-   FALLING SYMBOLS
-===================================== */
+/* FALLING SYMBOLS */
 
 .falling-symbol {
   position: fixed;
@@ -604,9 +573,7 @@ footer p {
 }
 
 
-/* =====================================
-   PRODUCT DETAIL PAGE
-===================================== */
+/* PRODUCT DETAIL PAGE */
 
 .product-detail {
   display: grid;
@@ -627,9 +594,7 @@ footer p {
 }
 
 
-/* =====================================
-   PRODUCT MAIN IMAGE
-===================================== */
+/* PRODUCT MAIN IMAGE */
 
 .product-main-image {
   overflow: hidden;
@@ -661,9 +626,7 @@ footer p {
 }
 
 
-/* =====================================
-   PRODUCT THUMBNAILS
-===================================== */
+/* PRODUCT THUMBNAILS */
 
 .product-thumbnails {
   display: flex;
@@ -704,9 +667,7 @@ footer p {
 }
 
 
-/* =====================================
-   PRODUCT INFO
-===================================== */
+/* PRODUCT INFO */
 
 .product-info {
   min-width: 0;
@@ -779,9 +740,7 @@ footer p {
 }
 
 
-/* =====================================
-   COMING SOON
-===================================== */
+/* COMING SOON */
 
 .detail-coming-soon {
   display: block;
@@ -800,9 +759,7 @@ footer p {
 }
 
 
-/* =====================================
-   SHIPPING NOTE
-===================================== */
+/* SHIPPING NOTE */
 
 .shipping-note {
   margin-top: 18px;
@@ -814,9 +771,7 @@ footer p {
 }
 
 
-/* =====================================
-   ADD TO CART
-===================================== */
+/* ADD TO CART */
 
 .add-to-cart-button {
   width: 100%;
@@ -853,9 +808,7 @@ footer p {
 }
 
 
-/* =====================================
-   TEST CHECKOUT BUTTON
-===================================== */
+/* test checkout */
 
 .test-checkout-button {
   display: inline-flex;
@@ -877,9 +830,7 @@ footer p {
 }
 
 
-/* =====================================
-   IMAGE LIGHTBOX
-===================================== */
+/* LIGHTBOX */
 
 .image-lightbox {
   position: fixed;
@@ -935,9 +886,7 @@ footer p {
 }
 
 
-/* =====================================
-   TABLET
-===================================== */
+/* TABLET */
 
 @media (max-width: 950px) {
 
@@ -979,9 +928,7 @@ footer p {
 }
 
 
-/* =====================================
-   SMALL TABLET
-===================================== */
+/* SMALL TAB */
 
 @media (max-width: 800px) {
 
@@ -1011,9 +958,7 @@ footer p {
 }
 
 
-/* =====================================
-   MOBILE
-===================================== */
+/* MOBILE */
 
 @media (max-width: 750px) {
 
@@ -1066,9 +1011,7 @@ footer p {
 }
 
 
-/* =====================================
-   PHONE
-===================================== */
+/* PHONE */
 
 @media (max-width: 600px) {
 
@@ -1079,11 +1022,6 @@ footer p {
   .hero-art {
     width: min(88%, 300px);
   }
-
-  /*
-  Stack hero buttons on phones.
-  Both become the same width.
-  */
 
   .hero-buttons {
     flex-direction: column;
@@ -1107,9 +1045,7 @@ footer p {
 }
 
 
-/* =====================================
-   SMALL PHONE
-===================================== */
+/* SMALL SCREENS */
 
 @media (max-width: 500px) {
 
