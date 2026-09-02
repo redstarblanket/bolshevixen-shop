@@ -960,7 +960,52 @@ footer p {
   }
 
 }
+/* CART PAGE*/
+.cart-page {
+  width: min(1100px, 92%);
+  margin: 50px auto 90px;
+}
 
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  gap: 35px;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 20px;
+  padding: 18px;
+
+  border: 2px solid #d92f61;
+  border-radius: 16px;
+
+  background: #fff8f2;
+}
+
+.cart-summary {
+  padding: 24px;
+
+  border: 2px solid #d92f61;
+  border-radius: 16px;
+
+  background: #fff8f2;
+}
+
+.checkout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 14px 20px;
+
+  background: #d92f61;
+  color: #fff8f2;
+
+  text-decoration: none;
+}
 
 /* MOBILE */
 
