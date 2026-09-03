@@ -1,4 +1,3 @@
-
 // FOURTHWALL CHECKOUT SETTINGS
 
 const FOURTHWALL_SHOP =
@@ -301,311 +300,253 @@ async function loadFourthwallProduct() {
 
 
 // Load product when page opens.
+
 loadFourthwallProduct();
 
-// FOURTHWALL CHECKOUT SETTINGS
-
-const FOURTHWALL_SHOP =
-  "https://bolshevixen-shop.fourthwall.com";
 
 
+// CART TEST MODE
 
-// CURRENT PRODUCT
+const cartTestArea =
+  document.getElementById(
+    "cart-test-area"
+  );
 
-let currentProduct = null;
+
+const comingSoon =
+  document.getElementById(
+    "coming-soon"
+  );
+
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const cartTestMode =
+  params.get("testcart") === "1";
+
+
+if (
+  cartTestMode &&
+  cartTestArea
+) {
+
+  cartTestArea.hidden =
+    false;
+
+
+  if (comingSoon) {
+
+    comingSoon.hidden =
+      true;
+
+  }
+
+}
 
 
 
-// LOAD INDIVIDUAL PRODUCT
+// CART
 
-async function loadFourthwallProduct() {
+const addToCartButton =
+  document.getElementById(
+    "add-to-cart"
+  );
 
-  const slug =
-    document.body.dataset.productSlug;
 
-  // Homepage has no product slug.
-  if (!slug) {
-    return;
+const cartMessage =
+  document.getElementById(
+    "cart-message"
+  );
+
+
+async function createCart() {
+
+  const response = await fetch(
+    "/api/cart",
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body: JSON.stringify({
+        action: "create"
+      })
+    }
+  );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      "Could not create cart"
+    );
+
   }
 
 
-  try {
+  return response.json();
 
-    // Product data comes through our
-    // private Vercel API route.
-    const response = await fetch(
-      `/api/product?slug=${encodeURIComponent(slug)}`
+}
+
+
+async function addProductToCart() {
+
+  if (
+    !currentProduct ||
+    !currentProduct.variants?.length
+  ) {
+
+    throw new Error(
+      "Product has not loaded"
+    );
+
+  }
+
+
+  let cartId =
+    localStorage.getItem(
+      "fourthwallCartId"
     );
 
 
-    if (!response.ok) {
+  if (!cartId) {
 
-      throw new Error(
-        `Fourthwall returned ${response.status}`
-      );
-
-    }
+    const cart =
+      await createCart();
 
 
-    const product =
-      await response.json();
+    cartId =
+      cart.id;
 
 
-    currentProduct = product;
-
-
-    console.log(
-      "Fourthwall product:",
-      product
+    localStorage.setItem(
+      "fourthwallCartId",
+      cartId
     );
 
-
-    // PAGE ELEMENTS
-
-    const title =
-      document.getElementById(
-        "product-title"
-      );
+  }
 
 
-    const price =
-      document.getElementById(
-        "product-price"
-      );
+  const variantId =
+    currentProduct.variants[0].id;
 
 
-    const description =
-      document.getElementById(
-        "product-description"
-      );
+  const response = await fetch(
+    "/api/cart",
+    {
+      method: "POST",
 
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
 
-    const mainImage =
-      document.getElementById(
-        "product-main-image"
-      );
-
-
-    const thumbnailContainer =
-      document.getElementById(
-        "product-thumbnails"
-      );
-
-
-    const testCheckout =
-      document.getElementById(
-        "test-checkout"
-      );
-
-
-    // TITLE
-
-    if (title) {
-
-      title.textContent =
-        product.name;
-
+      body: JSON.stringify({
+        action: "add",
+        cartId,
+        variantId,
+        quantity: 1
+      })
     }
+  );
 
 
-    // DESCRIPTION
+  if (!response.ok) {
 
-    if (description) {
+    throw new Error(
+      "Could not add item"
+    );
 
-      const temp =
-        document.createElement("div");
-
-
-      temp.innerHTML =
-        product.description || "";
+  }
 
 
-      const cleanText =
-        temp.textContent
-          .replace(/\s+/g, " ")
-          .trim();
+  return response.json();
+
+}
 
 
-      description.textContent =
-        cleanText;
+if (addToCartButton) {
 
-    }
+  addToCartButton.addEventListener(
+    "click",
+    async () => {
 
-
-    // PRICE
-
-    if (
-      price &&
-      product.variants?.length > 0
-    ) {
-
-      const productPrice =
-        product.variants[0].unitPrice;
+      addToCartButton.disabled =
+        true;
 
 
-      if (productPrice) {
-
-        price.textContent =
-          new Intl.NumberFormat(
-            "en-US",
-            {
-              style: "currency",
-              currency:
-                productPrice.currency
-            }
-          ).format(
-            productPrice.value
-          );
-
-      }
-
-    }
+      addToCartButton.textContent =
+        "Adding...";
 
 
-    // MAIN IMAGE
+      try {
 
-    if (
-      mainImage &&
-      product.images?.length > 0
-    ) {
-
-      mainImage.src =
-        product.images[0].url;
+        await addProductToCart();
 
 
-      mainImage.alt =
-        product.name;
-
-    }
+        addToCartButton.textContent =
+          "Added! ♥";
 
 
-    // THUMBNAILS
+        if (cartMessage) {
 
-    if (
-      thumbnailContainer &&
-      mainImage &&
-      product.images?.length > 0
-    ) {
-
-      thumbnailContainer.innerHTML =
-        "";
-
-
-      product.images.forEach(
-        (image, index) => {
-
-          const button =
-            document.createElement(
-              "button"
-            );
-
-
-          button.type =
-            "button";
-
-
-          button.className =
-            index === 0
-              ? "thumbnail active"
-              : "thumbnail";
-
-
-          const img =
-            document.createElement(
-              "img"
-            );
-
-
-          img.src =
-            image.url;
-
-
-          img.alt =
-            `${product.name} photo ${index + 1}`;
-
-
-          button.appendChild(img);
-
-
-          button.addEventListener(
-            "click",
-            () => {
-
-              mainImage.src =
-                image.url;
-
-
-              mainImage.alt =
-                `${product.name} photo ${index + 1}`;
-
-
-              thumbnailContainer
-                .querySelectorAll(
-                  ".thumbnail"
-                )
-                .forEach(
-                  (thumbnail) => {
-
-                    thumbnail
-                      .classList
-                      .remove(
-                        "active"
-                      );
-
-                  }
-                );
-
-
-              button.classList.add(
-                "active"
-              );
-
-            }
-          );
-
-
-          thumbnailContainer
-            .appendChild(button);
+          cartMessage.textContent =
+            "Added to your cart.";
 
         }
-      );
+
+
+        setTimeout(
+          () => {
+
+            addToCartButton.textContent =
+              "Add to Cart";
+
+
+            addToCartButton.disabled =
+              false;
+
+          },
+          1200
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Cart error:",
+          error
+        );
+
+
+        addToCartButton.textContent =
+          "Add to Cart";
+
+
+        addToCartButton.disabled =
+          false;
+
+
+        if (cartMessage) {
+
+          cartMessage.textContent =
+            "Could not add item.";
+
+        }
+
+      }
 
     }
-
-
-    // TEST CHECKOUT
-
-    if (
-      testCheckout &&
-      product.variants?.length > 0
-    ) {
-
-      const variantId =
-        product.variants[0].id;
-
-
-      testCheckout.href =
-        `${FOURTHWALL_SHOP}/cart/checkout` +
-        `?products=${encodeURIComponent(variantId)}:1` +
-        `&currency=USD`;
-
-    }
-
-
-  } catch (error) {
-
-    console.error(
-      "Could not load Fourthwall product:",
-      error
-    );
-
-  }
+  );
 
 }
-
-
-// Load product when page opens.
-loadFourthwallProduct();
 
 
 
@@ -793,215 +734,6 @@ if (
   );
 
 }
-
-
-
-
-// ESCAPE KEY CLOSES LIGHTBOX
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (
-      event.key === "Escape" &&
-      lightbox?.classList.contains(
-        "open"
-      )
-    ) {
-
-      closeLightbox();
-
-    }
-
-  }
-);
-
-// FALLING SYMBOLS
-
-const symbols = [
-  "★",
-  "♥",
-  "✿",
-  "☭",
-  "✦"
-];
-
-
-function createFallingSymbol() {
-
-  const symbol =
-    document.createElement(
-      "span"
-    );
-
-
-  symbol.className =
-    "falling-symbol";
-
-
-  symbol.textContent =
-    symbols[
-      Math.floor(
-        Math.random() *
-        symbols.length
-      )
-    ];
-
-
-  symbol.style.left =
-    Math.random() *
-    100 +
-    "vw";
-
-
-  symbol.style.fontSize =
-    12 +
-    Math.random() *
-    18 +
-    "px";
-
-
-  symbol.style.animationDuration =
-    7 +
-    Math.random() *
-    6 +
-    "s";
-
-
-  symbol.style.opacity =
-    0.8 +
-    Math.random() *
-    0.2;
-
-
-  document.body.appendChild(
-    symbol
-  );
-
-
-  setTimeout(
-    () => {
-
-      symbol.remove();
-
-    },
-    14000
-  );
-
-}
-
-
-setInterval(
-  createFallingSymbol,
-  500
-);
-
-
-
-// IMAGE LIGHTBOX
-
-const mainPreview =
-  document.getElementById(
-    "product-main-image"
-  );
-
-
-const lightbox =
-  document.getElementById(
-    "imageLightbox"
-  );
-
-
-const lightboxImage =
-  lightbox?.querySelector(
-    "img"
-  );
-
-
-const lightboxClose =
-  lightbox?.querySelector(
-    ".lightbox-close"
-  );
-
-
-function closeLightbox() {
-
-  if (!lightbox) {
-    return;
-  }
-
-
-  lightbox.classList.remove(
-    "open"
-  );
-
-
-  lightbox.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-}
-
-
-if (
-  mainPreview &&
-  lightbox &&
-  lightboxImage &&
-  lightboxClose
-) {
-
-  mainPreview.addEventListener(
-    "click",
-    () => {
-
-      lightboxImage.src =
-        mainPreview.src;
-
-
-      lightboxImage.alt =
-        mainPreview.alt;
-
-
-      lightbox.classList.add(
-        "open"
-      );
-
-
-      lightbox.setAttribute(
-        "aria-hidden",
-        "false"
-      );
-
-    }
-  );
-
-
-  lightboxClose.addEventListener(
-    "click",
-    closeLightbox
-  );
-
-
-  lightbox.addEventListener(
-    "click",
-    (event) => {
-
-      if (
-        event.target ===
-        lightbox
-      ) {
-
-        closeLightbox();
-
-      }
-
-    }
-  );
-
-}
-
 
 
 
