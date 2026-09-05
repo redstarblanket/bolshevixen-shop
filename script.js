@@ -347,43 +347,6 @@ if (
 
 }
 
-// cart test mode
-
-const cartTestArea =
-  document.getElementById(
-    "cart-test-area"
-  );
-
-const comingSoon =
-  document.getElementById(
-    "coming-soon"
-  );
-
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
-
-const cartTestMode =
-  params.get("testcart") === "1";
-
-
-if (
-  cartTestMode &&
-  cartTestArea
-) {
-
-  cartTestArea.hidden =
-    false;
-
-
-  if (comingSoon) {
-    comingSoon.hidden =
-      true;
-  }
-
-}
-
 
 // CART
 
