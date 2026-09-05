@@ -1,31 +1,121 @@
 export default async function handler(req, res) {
+
   const token =
     process.env.FOURTHWALL_TOKEN;
-
-  if (!token) {
-    return res.status(500).json({
-      error: "Fourthwall token is not configured"
-    });
-  }
 
   const API_BASE =
     "https://storefront-api.fourthwall.com/v1";
 
 
-  /* create a new cart */
+  if (!token) {
+
+    return res.status(500).json({
+      error: "Fourthwall token is not configured"
+    });
+
+  }
+
+
+  const action =
+    req.method === "GET"
+      ? req.query.action
+      : req.body.action;
+
+
+  /* get cart */
+
+  if (
+    req.method === "GET" &&
+    action === "get"
+  ) {
+
+    const cartId =
+      req.query.cartId;
+
+
+    if (!cartId) {
+
+      return res.status(400).json({
+        error: "Missing cart ID"
+      });
+
+    }
+
+
+    try {
+
+      const response = await fetch(
+        `${API_BASE}/carts/${encodeURIComponent(cartId)}` +
+        `?storefront_token=${encodeURIComponent(token)}`
+      );
+
+
+      const text =
+        await response.text();
+
+
+      if (!response.ok) {
+
+        console.error(
+          "Fourthwall get cart error:",
+          response.status,
+          text
+        );
+
+
+        return res
+          .status(response.status)
+          .json({
+            error: "Could not load cart"
+          });
+
+      }
+
+
+      const cart =
+        JSON.parse(text);
+
+
+      return res
+        .status(200)
+        .json(cart);
+
+
+    } catch (error) {
+
+      console.error(
+        "Get cart error:",
+        error
+      );
+
+
+      return res.status(500).json({
+        error: "Server error"
+      });
+
+    }
+
+  }
+
+
+  /* create cart */
 
   if (
     req.method === "POST" &&
-    req.body.action === "create"
+    action === "create"
   ) {
+
     try {
+
       const response = await fetch(
-        `${API_BASE}/carts?storefront_token=${encodeURIComponent(token)}`,
+        `${API_BASE}/carts` +
+        `?storefront_token=${encodeURIComponent(token)}`,
         {
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type":
+              "application/json"
           },
 
           body: JSON.stringify({
@@ -40,17 +130,20 @@ export default async function handler(req, res) {
 
 
       if (!response.ok) {
+
         console.error(
-          "Fourthwall cart create error:",
+          "Fourthwall create cart error:",
           response.status,
           text
         );
+
 
         return res
           .status(response.status)
           .json({
             error: "Could not create cart"
           });
+
       }
 
 
@@ -62,25 +155,31 @@ export default async function handler(req, res) {
         .status(200)
         .json(cart);
 
+
     } catch (error) {
+
       console.error(
-        "Cart create error:",
+        "Create cart error:",
         error
       );
+
 
       return res.status(500).json({
         error: "Server error"
       });
+
     }
+
   }
 
 
-  /* add an item */
+  /* add item */
 
   if (
     req.method === "POST" &&
-    req.body.action === "add"
+    action === "add"
   ) {
+
     const {
       cartId,
       variantId,
@@ -88,14 +187,20 @@ export default async function handler(req, res) {
     } = req.body;
 
 
-    if (!cartId || !variantId) {
+    if (
+      !cartId ||
+      !variantId
+    ) {
+
       return res.status(400).json({
         error: "Missing cart or variant"
       });
+
     }
 
 
     try {
+
       const response = await fetch(
         `${API_BASE}/carts/${encodeURIComponent(cartId)}/add` +
         `?storefront_token=${encodeURIComponent(token)}`,
@@ -103,7 +208,8 @@ export default async function handler(req, res) {
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type":
+              "application/json"
           },
 
           body: JSON.stringify({
@@ -123,17 +229,20 @@ export default async function handler(req, res) {
 
 
       if (!response.ok) {
+
         console.error(
-          "Fourthwall add error:",
+          "Fourthwall add item error:",
           response.status,
           text
         );
+
 
         return res
           .status(response.status)
           .json({
             error: "Could not add item"
           });
+
       }
 
 
@@ -145,20 +254,26 @@ export default async function handler(req, res) {
         .status(200)
         .json(cart);
 
+
     } catch (error) {
+
       console.error(
-        "Add to cart error:",
+        "Add item error:",
         error
       );
+
 
       return res.status(500).json({
         error: "Server error"
       });
+
     }
+
   }
 
 
   return res.status(405).json({
-    error: "Unsupported action"
+    error: "Unsupported request"
   });
+
 }
