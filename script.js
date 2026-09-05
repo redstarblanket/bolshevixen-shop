@@ -547,7 +547,315 @@ if (addToCartButton) {
 
 }
 
+// CART PAGE
 
+const cartItemsContainer =
+  document.getElementById(
+    "cart-items"
+  );
+
+
+const cartSubtotal =
+  document.getElementById(
+    "cart-subtotal"
+  );
+
+
+const checkoutButton =
+  document.getElementById(
+    "checkout-button"
+  );
+
+
+async function getCart(
+  cartId
+) {
+
+  const response = await fetch(
+    `/api/cart?action=get&cartId=${encodeURIComponent(cartId)}`
+  );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      "Could not load cart"
+    );
+
+  }
+
+
+  return response.json();
+
+}
+
+
+function formatMoney(
+  value,
+  currency = "USD"
+) {
+
+  return new Intl.NumberFormat(
+    "en-US",
+    {
+      style: "currency",
+      currency
+    }
+  ).format(value);
+
+}
+
+
+function renderCart(
+  cart
+) {
+
+  if (!cartItemsContainer) {
+    return;
+  }
+
+
+  cartItemsContainer.innerHTML =
+    "";
+
+
+  if (
+    !cart.items ||
+    cart.items.length === 0
+  ) {
+
+    cartItemsContainer.innerHTML = `
+      <p class="empty-cart">
+        Your cart is empty.
+      </p>
+    `;
+
+
+    if (cartSubtotal) {
+
+      cartSubtotal.textContent =
+        "$0.00";
+
+    }
+
+
+    return;
+
+  }
+
+
+  let subtotal =
+    0;
+
+
+  cart.items.forEach(
+    (item) => {
+
+      const variant =
+        item.variant;
+
+
+      const quantity =
+        item.quantity || 1;
+
+
+      const unitPrice =
+        variant.unitPrice;
+
+
+      const itemTotal =
+        unitPrice.value *
+        quantity;
+
+
+      subtotal +=
+        itemTotal;
+
+
+      const image =
+        variant.images?.[0]?.url || "";
+
+
+      const productName =
+        variant.product?.name ||
+        variant.name ||
+        "Product";
+
+
+      const article =
+        document.createElement(
+          "article"
+        );
+
+
+      article.className =
+        "cart-item";
+
+
+      article.innerHTML = `
+        <div class="cart-item-image">
+          ${
+            image
+              ? `
+                <img
+                  src="${image}"
+                  alt="${productName}"
+                >
+              `
+              : ""
+          }
+        </div>
+
+        <div class="cart-item-info">
+
+          <h2>
+            ${productName}
+          </h2>
+
+          <p class="cart-item-price">
+            ${formatMoney(
+              unitPrice.value,
+              unitPrice.currency
+            )}
+          </p>
+
+          <div class="cart-item-controls">
+
+            <div class="quantity-control">
+
+              <button
+                type="button"
+                disabled
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+
+              <span>
+                ${quantity}
+              </span>
+
+              <button
+                type="button"
+                disabled
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+
+            </div>
+
+            <button
+              type="button"
+              class="remove-item"
+              disabled
+            >
+              Remove
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+
+      cartItemsContainer
+        .appendChild(
+          article
+        );
+
+    }
+  );
+
+
+  if (cartSubtotal) {
+
+    const currency =
+      cart.items[0]
+        .variant
+        .unitPrice
+        .currency;
+
+
+    cartSubtotal.textContent =
+      formatMoney(
+        subtotal,
+        currency
+      );
+
+  }
+
+
+  if (checkoutButton) {
+
+    checkoutButton.href =
+      `${FOURTHWALL_SHOP}/cart/checkout` +
+      `?cartId=${encodeURIComponent(cart.id)}` +
+      `&currency=USD`;
+
+  }
+
+}
+
+
+async function loadCartPage() {
+
+  if (!cartItemsContainer) {
+    return;
+  }
+
+
+  const cartId =
+    localStorage.getItem(
+      "fourthwallCartId"
+    );
+
+
+  if (!cartId) {
+
+    renderCart({
+      items: []
+    });
+
+
+    return;
+
+  }
+
+
+  try {
+
+    const cart =
+      await getCart(
+        cartId
+      );
+
+
+    renderCart(
+      cart
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Could not load cart page:",
+      error
+    );
+
+
+    cartItemsContainer.innerHTML = `
+      <p class="empty-cart">
+        Could not load your cart.
+      </p>
+    `;
+
+  }
+
+}
+
+
+loadCartPage();
 
 // FALLING SYMBOLS
 
