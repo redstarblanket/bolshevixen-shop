@@ -1,5 +1,9 @@
-/* GLOBAL */
 
+[hidden] {
+  display: none !important;
+}
+
+/* GLOBAL */
 * {
   box-sizing: border-box;
 }
